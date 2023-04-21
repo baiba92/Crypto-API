@@ -5,6 +5,7 @@ namespace App;
 class CryptoCurrency
 {
     private string $name;
+    private int $id;
     private string $symbol;
     private float $price;
     private float $priceChange24h;
@@ -16,6 +17,7 @@ class CryptoCurrency
     public function __construct
     (
         string $name,
+        int    $id,
         string $symbol,
         float  $price,
         float  $priceChange24h,
@@ -26,6 +28,7 @@ class CryptoCurrency
     )
     {
         $this->name = $name;
+        $this->id = $id;
         $this->symbol = $symbol;
         $this->price = $price;
         $this->priceChange24h = $priceChange24h;
@@ -38,6 +41,11 @@ class CryptoCurrency
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getSymbol(): string

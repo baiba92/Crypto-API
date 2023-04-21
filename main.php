@@ -7,6 +7,9 @@ require_once 'vendor/autoload.php';
 
 $apiClient = new ApiClient();
 
+$dotEnv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotEnv->load();
+
 $count = (int)readline('Enter number of crypto currencies you would like to list: ');
 
 $currencies = $apiClient->getCurrencies($count);
@@ -17,6 +20,7 @@ foreach ($currencies as $key => $currency) {
     $key = $key + 1;
     echo "[$key]" . PHP_EOL;
     echo "Name: {$currency->getName()}" . PHP_EOL;
+    echo "ID: {$currency->getId()}" . PHP_EOL;
     echo "Symbol: {$currency->getSymbol()}" . PHP_EOL;
     echo "Price: \${$currency->format($currency->getPrice())}" . PHP_EOL;
     echo "Price change (24h): {$currency->format($currency->getPriceChange24h())}%" . PHP_EOL;
