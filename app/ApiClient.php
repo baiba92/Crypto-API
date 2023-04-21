@@ -8,7 +8,6 @@ class ApiClient
 {
     private Client $client;
 
-
     public function __construct()
     {
         $this->client = new Client();
@@ -23,9 +22,7 @@ class ApiClient
                 'X-CMC_PRO_API_KEY' => $_ENV['API_KEY']
             ],
             'query' => [
-                'start' => '1',
-                'limit' => $currencyCount,
-                'convert' => 'USD'
+                'limit' => $currencyCount
             ]
         ]);
         $records = (json_decode($response->getBody()->getContents()))->data;
