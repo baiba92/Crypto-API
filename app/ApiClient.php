@@ -11,7 +11,7 @@ class ApiClient
 
     public function __construct()
     {
-        $this->client = new Client(['verify' => false]);
+        $this->client = new Client();
     }
 
     public function getCurrencies(int $currencyCount): array
