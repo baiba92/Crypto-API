@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\CryptoCurrency;
 use GuzzleHttp\Client;
 
 class ApiClient
@@ -10,10 +11,10 @@ class ApiClient
 
     public function __construct()
     {
-        $this->client = new Client();
+        $this->client = new Client(['verify' => false]);
     }
 
-    public function getCurrencies(int $currencyCount): array
+    public function fetchCurrencies(int $currencyCount): array
     {
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
         $response = $this->client->get($url, [
@@ -25,10 +26,13 @@ class ApiClient
                 'limit' => $currencyCount
             ]
         ]);
-        $records = (json_decode($response->getBody()->getContents()))->data;
+        return (json_decode($response->getBody()->getContents()))->data;
+    }
 
+    public function createCollection(array $currencyRecords): array
+    {
         $currencies = [];
-        foreach ($records as $record) {
+        foreach ($currencyRecords as $record) {
             $currencies[] = new CryptoCurrency(
                 $record->name,
                 $record->id,

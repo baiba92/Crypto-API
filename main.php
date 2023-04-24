@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\ApiClient;
-use App\CryptoCurrency;
+use app\Models\CryptoCurrency;
 
 require_once 'vendor/autoload.php';
 
@@ -12,7 +12,7 @@ $dotEnv->load();
 
 $count = (int)readline('Enter number of crypto currencies you would like to list: ');
 
-$currencies = $apiClient->getCurrencies($count);
+$currencies = $apiClient->createCollection($apiClient->fetchCurrencies($count));
 
 echo PHP_EOL;
 /** @var CryptoCurrency $currency */
